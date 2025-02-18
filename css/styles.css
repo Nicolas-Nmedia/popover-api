@@ -1,0 +1,116 @@
+:root {
+  --clrPrimary: oklch(80% 0.05 80);
+  --clrSecondary: oklch(70% 0.08 40);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100svb;
+  background-color: oklch(18% 0.05 220);
+
+  color: oklch(96% .01 220);
+}
+
+main {
+  height: 100svb;
+}
+
+menu {
+  list-style-type: none;
+}
+
+.mainGrid {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+.btn {
+  height: 2em;
+  width: auto;
+  aspect-ratio: 1;
+  border: none;
+
+  background-color: var(--clrPrimary);
+  border-radius: 50%;
+  
+  font-size: 2em;
+  line-height: 1;
+
+  transition: background-color 0.3s;
+
+  &:is(:focus-visible, :hover) {
+    background-color: oklch(from var(--clrPrimary) calc(l * 1.15) c h);
+  }
+}
+
+.btn_secondary {
+  background-color: var(--clrSecondary);
+
+  &:is(:focus-visible, :hover) {
+    background-color: oklch(from var(--clrSecondary) calc(l * 1.15) c h);
+  }
+}
+
+.speedDial-disclosure {
+  anchor-name: --speedDial-disclosure;
+}
+
+[popover] {
+  position-anchor: --speedDial-disclosure;
+  border: none;
+
+  transition: display 0.2s allow-discreet;
+}
+
+.speedDial-buttonList {
+  display: block;
+  position-area: span-start start;
+  translate: -8px;
+  /*  popover override  */
+  background: none;
+  overflow: unset;
+
+  > * + * {
+    margin-top: 0.5em;
+  }
+  
+  li {
+    opacity: 0;
+    translate: 0 1rem;
+
+    transition: 
+      opacity 0.2s var(--delay) ease-in,
+      translate 0.2s var(--delay) ease-in;
+
+    &:nth-child(1) {
+      --delay: 0.4s;
+    }
+
+    &:nth-child(2) {
+      --delay: 0.3s;
+    }
+
+    &:nth-child(3) {
+      --delay: 0.2s;
+    }
+
+    &:nth-child(4) {
+      --delay: 0.1s;
+    }
+
+    &:nth-child(5) {
+      --delay: 0s;
+    }
+  }
+}
+
+:popover-open li {
+  opacity: 1;
+  translate: 0 0rem;
+}
